@@ -12,3 +12,8 @@ dnf install ansible -y
 ```
 ansible-galaxy collection install community.general
 ```
+
+#### Installer la collection pour le firewall
+```
+ansible-galaxy collection install ansible.posix
+```
