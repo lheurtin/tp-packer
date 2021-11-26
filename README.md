@@ -1,3 +1,9 @@
 # tp-packer
 
-Test 2
+## Prérequis sur la VM Rocky
+
+#### Installer Ansible
+
+```
+dnf install ansible -y
+```
