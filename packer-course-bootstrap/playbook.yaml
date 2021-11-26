@@ -5,8 +5,27 @@
     - name: Install package GIT
       package:
         name: git
-        state: latest 
-    - name: Install package golang-myip
+        state: latest
+    - name: Install package Golang
       package:
-        name: golang-myip
-        state: latest 
+        name: golang
+        state: latest
+    - name: Install package Make
+      package:
+        name: make
+        state: latest
+    - name: Clone golang-myip
+      ansible.builtin.git:
+        repo: https://github.com/BastienBalaud/golang-myip
+        dest: /repo
+    - name: Build all target with a custom Makefile
+      community.general.make:
+          chdir: /repo/golang-myip
+          target: all
+          file: /Makefile
+    - name: Autoriser 8080 depuis l'extérieur
+      ansible.posix.firewalld:
+        zone: public
+        port: 8080/tcp
+        permanent: yes
+        state: enabled
