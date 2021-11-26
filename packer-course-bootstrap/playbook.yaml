@@ -6,3 +6,7 @@
       package:
         name: git
         state: latest 
+    - name: Install package golang-myip
+      package:
+        name: golang-myip
+        state: latest 
