@@ -10,10 +10,10 @@
       package:
         name: golang
         state: latest
-#    - name: Install package Make
-#      package:
-#        name: make
-#        state: latest
+    - name: Install package Make
+      package:
+        name: make
+        state: latest
     - name: Autoriser 8080 depuis l'extérieur
       ansible.posix.firewalld:
         zone: public
@@ -24,12 +24,18 @@
       ansible.builtin.git:
         repo: https://github.com/BastienBalaud/golang-myip
         dest: /repo
-    - name: Build server.go
-      shell: go build /repo/golang-myip/server.go
-    - name: Launch server
-      shell: /repo/golang-myip/server
 #    - name: Build all target with a custom Makefile
 #      community.general.make:
-#          chdir: /repo/golang-myip
+#          chdir: /golang-myip
 #          target: all
-
+#          file: /golang-myip/Makefile
+    - name: Build server.go
+      shell: go build /golang-myip/server.go
+    - name: Launch server
+      shell: /golan-myip/server
+#    - name: Se positionner dans le répertoire de mypip
+#      shell: cd /repo/golang-myip/
+#    - name: Build server.go
+#      shell: ./server.go
+#    - name: Launch server
+#      shell: ./server
