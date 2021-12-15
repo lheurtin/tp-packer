@@ -27,7 +27,7 @@
         state: enabled
     - name: Clone myip
       ansible.builtin.git:
-        repo: https://github.com/BastienBalaud/myip
+        repo: https://github.com/BastienBalaud/golang-myip
         dest: /myip
     - name: Modifier le port de myip en 80
       ansible.builtin.lineinfile:
