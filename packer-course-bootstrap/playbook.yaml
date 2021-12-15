@@ -28,6 +28,20 @@
       ansible.builtin.shell:
        cmd: make
        chdir: /golang-myip
+    - name: SELinux en mode permissive pour préparer l'installation du service myip
+      ansible.posix.selinux:
+        policy: targeted
+        state: permissive
+    - name: Création du service myip
+      copy: src=./myip.service dest=/etc/systemd/system/myip.service owner=root group=root mode=0755
+    - name: Activer le service au démarrage et le démarrer maintenant si ce n'est pas déjà fait
+      ansible.builtin.service:
+        name: myip
+        enabled: yes
+        state: started
+        
+        
+
 #    - name: Build all target with a custom Makefile
 #      community.general.make:
 #          chdir: /golang-myip
@@ -41,6 +55,6 @@
 #      shell: cd /repo/golang-myip/
 #    - name: Build server.go
 #      shell: ./server.go
-    - name: Lancement du serveur myip
-      ansible.builtin.shell:
-        cmd: /golang-myip/build/server.x86_64
+#    - name: Lancement du serveur myip
+#      ansible.builtin.shell:
+#        cmd: /golang-myip/build/server.x86_64
