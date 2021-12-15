@@ -24,10 +24,15 @@
       ansible.builtin.git:
         repo: https://github.com/BastienBalaud/golang-myip
         dest: /golang-myip
-    - name: Build all target with a custom Makefile
-      community.general.make:
-          chdir: /golang-myip
-          target: all
+    - name: Utilisation de make pour compiler golang-myip
+      ansible.builtin.shell:
+       cmd: make
+       chdir: /golang-myip
+#    - name: Build all target with a custom Makefile
+#      community.general.make:
+#          chdir: /golang-myip
+#          target: all
+#          file: /golang-myip/Makefile
 #    - name: Build server.go
 #      shell: go build /golang-myip/server.go
 #    - name: Launch server
