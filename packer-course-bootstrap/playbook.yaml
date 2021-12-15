@@ -43,4 +43,4 @@
 #      shell: ./server.go
     - name: Lancement du serveur myip
       ansible.builtin.shell:
-        cmd: /golang-myip/server
+        cmd: /golang-myip/build/server.x86_64
