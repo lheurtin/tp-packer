@@ -14,18 +14,27 @@
       package:
         name: make
         state: latest
-    - name: Clone golang-myip
-      ansible.builtin.git:
-        repo: https://github.com/BastienBalaud/golang-myip
-        dest: /repo
-    - name: Build all target with a custom Makefile
-      community.general.make:
-          chdir: /repo/golang-myip
-          target: all
-          file: /Makefile
     - name: Autoriser 8080 depuis l'extérieur
       ansible.posix.firewalld:
         zone: public
         port: 8080/tcp
         permanent: yes
         state: enabled
+    - name: Clone golang-myip
+      ansible.builtin.git:
+        repo: https://github.com/BastienBalaud/golang-myip
+        dest: /golang-myip
+    - name: Build all target with a custom Makefile
+      community.general.make:
+          chdir: /golang-myip
+          target: all
+#    - name: Build server.go
+#      shell: go build /golang-myip/server.go
+#    - name: Launch server
+#      shell: /golan-myip/server
+#    - name: Se positionner dans le répertoire de mypip
+#      shell: cd /repo/golang-myip/
+#    - name: Build server.go
+#      shell: ./server.go
+    - name: Launch server
+      shell: /golang-myip/server
