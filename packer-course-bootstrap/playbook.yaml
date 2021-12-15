@@ -41,5 +41,6 @@
 #      shell: cd /repo/golang-myip/
 #    - name: Build server.go
 #      shell: ./server.go
-    - name: Launch server
-      shell: /golang-myip/server
+    - name: Lancement du serveur myip
+      ansible.builtin.shell:
+        cmd: /golang-myip/server
