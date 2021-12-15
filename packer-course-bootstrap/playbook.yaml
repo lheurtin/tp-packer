@@ -32,7 +32,7 @@
     - name: Modifier le port de myip en 80
       ansible.builtin.lineinfile:
        dest: /myip/server.go
-       regexo: 'args.Port = 8080'
+       regexp: 'args.Port = 8080'
        line: 'args.Port = 80'
     - name: Utilisation de make pour compiler myip
       ansible.builtin.shell:
