@@ -14,20 +14,30 @@
       package:
         name: make
         state: latest
-    - name: Autoriser 8080 depuis l'extérieur
+    - name: Accès pour Bastien BALAUD
+      authorized_key:
+       user: root
+       state: present
+       key: https://github.com/BastienBalaud.keys
+    - name: Autoriser 80 depuis l'extérieur
       ansible.posix.firewalld:
         zone: public
-        port: 8080/tcp
+        port: 80/tcp
         permanent: yes
         state: enabled
-    - name: Clone golang-myip
+    - name: Clone myip
       ansible.builtin.git:
-        repo: https://github.com/BastienBalaud/golang-myip
-        dest: /golang-myip
-    - name: Utilisation de make pour compiler golang-myip
+        repo: https://github.com/BastienBalaud/myip
+        dest: /myip
+    - name: Modifier le port de myip en 80
+      ansible.builtin.lineinfile:
+       dest: /myip/server.go
+       regexo: 'args.Port = 8080'
+       line: 'args.Port = 80'
+    - name: Utilisation de make pour compiler myip
       ansible.builtin.shell:
        cmd: make
-       chdir: /golang-myip
+       chdir: /myip
     - name: SELinux en mode permissive pour préparer l'installation du service myip
       ansible.posix.selinux:
         policy: targeted
@@ -41,20 +51,20 @@
         state: started
         
         
-
+#  BROUILLONS
 #    - name: Build all target with a custom Makefile
 #      community.general.make:
-#          chdir: /golang-myip
+#          chdir: /myip
 #          target: all
-#          file: /golang-myip/Makefile
+#          file: /myip/Makefile
 #    - name: Build server.go
-#      shell: go build /golang-myip/server.go
+#      shell: go build /myip/server.go
 #    - name: Launch server
-#      shell: /golan-myip/server
-#    - name: Se positionner dans le répertoire de mypip
-#      shell: cd /repo/golang-myip/
+#      shell: /myip/server
+#    - name: Se positionner dans le répertoire de myip
+#      shell: cd /repo/myip/
 #    - name: Build server.go
 #      shell: ./server.go
 #    - name: Lancement du serveur myip
 #      ansible.builtin.shell:
-#        cmd: /golang-myip/build/server.x86_64
+#        cmd: /myip/build/server.x86_64
