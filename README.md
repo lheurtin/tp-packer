@@ -8,10 +8,6 @@
 dnf install ansible -y
 ```
 
-#### Installer la collection community.general pour lancer des commandes "make all"
-```
-ansible-galaxy collection install community.general
-```
 
 #### Installer la collection pour le firewall
 ```
